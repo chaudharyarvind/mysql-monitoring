@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-hostname=$(grep -i "Hostname=" /etc/zabbix/zabbix_agentd.conf | sed 's/Hostname=//g')
+PATH=/opt/rh/rh-mariadb101/root/usr/bin:$PATH
+
+hostname=$(grep -i "^Hostname=" /etc/zabbix/zabbix_agentd.conf | sed 's/Hostname=//g')
 
 get_mysqld_sockets() {
 	ss -xl 2>/dev/null | awk '/mysql(.*)?\.sock/ && !/handler-socket/ { print $5 }'
